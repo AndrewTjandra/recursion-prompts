@@ -196,12 +196,64 @@ var palindrome = function(string) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
+//get remainder subtraccting y from x and calling recursion
+//base case, if y > x
+//terminate case, y  = 0
+//if one is negative, answer will be negative
 var modulo = function(x, y) {
+  if(y === 0) {
+    return NaN;
+  }
+
+  if(x === 0) {
+    return 0;
+  }
+
+  if(x > 0 && y > 0 ) {
+    if(x < y) {
+      return x;
+    }
+    return modulo(x - y, y);
+
+  } else if (x < 0 && y < 0) {
+    if(x > y) {
+      return x;
+    }  
+    return modulo(x - y, y);
+
+  } else if (x < 0 && y > 0) {
+    if(x + y > 0) {
+      return x;
+    }
+    return modulo(x + y, y);
+
+  } else {
+    if(x + y < 0){
+      return -x;
+    }
+    return modulo(x + y, y);
+  }  
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
+//if y = 0, return 0
+//add x by y number of times
+//will need to keep track of negative number somehow
 var multiply = function(x, y) {
+  if (y === 0 || x === 0) {
+    return 0;
+  }
+
+  if(x < 0 && y > 0) {
+    return x + multiply(x, y - 1);
+  } else if (x > 0 && y < 0) {
+    return -x + multiply(x, y + 1);
+  } else if (x < 0 && y < 0) {
+    return -x + multiply(x, y + 1);
+  } else {
+    return x + multiply(x, y-1);
+  }
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
